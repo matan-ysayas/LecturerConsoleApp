@@ -102,15 +102,27 @@ void readFromFile(List<string> someList, string fileName)
 }
 
 
-void getTheFirstStudent(string lecturerName)
+void getTheFirstStudent()
 {
-    FileStream fs3 = new FileStream($@"c:\test\{lecturerName}.text", FileMode.Open);
-    using (StreamReader reader = new StreamReader(fs3))
+    try
     {
-        Console.Write(reader.ReadLine());
-        
-    }
+        Console.WriteLine("enter the lecturer name of the student");
+        string lecturerName = Console.ReadLine();
 
+        FileStream fs3 = new FileStream($@"c:\test\{lecturerName}.text", FileMode.Open);
+        using (StreamReader reader = new StreamReader(fs3))
+        {
+            Console.Write(reader.ReadLine());
+
+        }
+    }catch (ArgumentException)
+    {
+        Console.WriteLine("the name of the lecturer is not found");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
 };
 
 
@@ -129,10 +141,7 @@ void gradesApp()
             break;
 
         case 2:
-            Console.WriteLine("enter the lecturer name of the student");
-            string lecturerName = Console.ReadLine();
-
-            getTheFirstStudent(lecturerName);
+            getTheFirstStudent();
 
             break;
     }
